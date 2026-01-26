@@ -78,7 +78,7 @@
                         </div>
                         <div class="md:col-span-10 space-y-2">
                             <label class="text-xs font-bold text-slate-500 uppercase">Endpoint URL</label>
-                            <input type="url" id="url" value="https://jsonplaceholder.typicode.com/posts/1" placeholder="https://api..." class="w-full rounded-lg border border-slate-200 text-sm px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-slate-600" required>
+                            <input type="url" id="url" value="https://nx.mtex.dev/" placeholder="https://api..." class="w-full rounded-lg border border-slate-200 text-sm px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-slate-600" required>
                         </div>
                     </div>
 
@@ -135,7 +135,11 @@
 
         </main>
 
-        <footer class="mt-16 text-center text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">
+        <footer class="mt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
+            <div class="flex gap-4">
+                <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
+                <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+            </div>
             <span>&copy; 2026 API-SANDBOX &bull; Playground <span id="playgroundVersion">v?.?.?</span></span>
         </footer>
     </div>
@@ -163,7 +167,7 @@
         const logTime = document.getElementById('log-time');
 
         const config = {
-            "playground_version": "1.1.2"
+            "playground_version": "1.1.5"
         };
 
         const initialUrl = urlParams.get("url");
@@ -191,7 +195,12 @@
 
         methodSelect.dispatchEvent(new Event('change'));
 
-        copyPermalinkBtn.addEventListener('click', () => {
+        function updateUrl(lin = null) {
+            console.log("WIP")
+        };
+
+        function copyPermalink(e = null) {
+            e.preventDefault()
             const currentUrl = new URL(window.location.origin + window.location.pathname);
             currentUrl.searchParams.set('url', urlInput.value);
             if (!['GET'].includes(methodSelect.value)) {
@@ -205,7 +214,11 @@
             }).catch(() => {
                 showToast("Fehler beim Kopieren", "error", 3000);
             });
-        });
+
+            updateUrl(url);
+        }
+
+        copyPermalinkBtn.addEventListener('click', copyPermalink);
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
