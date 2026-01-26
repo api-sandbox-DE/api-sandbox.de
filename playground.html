@@ -153,7 +153,7 @@
         const btnIcon = document.getElementById('btn-icon');
         const btnSpinner = document.getElementById('btn-spinner');
         const copyPermalinkBtn = document.getElementById('copy-permalink');
-        const bodyContent = document.getElementById('request-body');
+        const requestBody = document.getElementById('request-body');
         
         const responseOutput = document.getElementById('response-output');
         const statusBadge = document.getElementById('status-badge');
@@ -177,7 +177,7 @@
             methodSelect.value = initialMethod.toUpperCase();
         }
         if (initialRequestBody) {
-            bodyContent.value = decodeURIComponent(initialRequestBody);
+            requestBody.value = decodeURIComponent(initialRequestBody);
         }
 
         methodSelect.addEventListener('change', () => {
@@ -198,7 +198,7 @@
                 currentUrl.searchParams.set('method', methodSelect.value);
             };
             if (!['GET', 'DELETE'].includes(methodSelect.value)) {
-                currentUrl.searchParams.set('body-content', bodyContent.value);
+                currentUrl.searchParams.set('body-content', requestBody.value);
             };
             navigator.clipboard.writeText(currentUrl.toString()).then(() => {
                 showToast("Link in die Zwischenablage kopiert!", "success", 3000);
@@ -219,7 +219,7 @@
             
             const url = urlInput.value;
             const method = methodSelect.value;
-            const bodyContent = bodyContent.value;
+            const bodyContent = requestBody.value;
             
             let options = {
                 method: method,
