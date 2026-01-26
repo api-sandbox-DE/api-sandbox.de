@@ -24,14 +24,21 @@
             background: #475569;
             border-radius: 4px;
         }
+        .toast-enter {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        .toast-active {
+            transform: translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="text-slate-900 antialiased min-h-screen flex flex-col py-10">
 
     <div class="max-w-5xl mx-auto w-full px-6">
         
-        <!-- Header / Nav -->
-        <header class="mb-10 flex justify-between items-end">
+        <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
             <div>
                 <a href="index.html" class="group flex items-center space-x-2 text-sm font-bold text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-widest mb-4">
                     <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -40,117 +47,114 @@
                 <h1 class="text-4xl font-extrabold tracking-tight">API Playground</h1>
                 <p class="text-slate-500 font-medium mt-2">Teste Endpunkte, inspiziere Header und debugge deine Requests live.</p>
             </div>
-            <div class="hidden md:block">
-                <div class="flex items-center space-x-2 bg-white border border-slate-200 px-3 py-1.5 rounded-full shadow-sm">
+            <div class="flex items-center space-x-3">
+                <button id="copy-permalink" class="flex items-center space-x-2 bg-white border border-slate-200 px-4 py-2 rounded-lg shadow-sm hover:bg-slate-50 transition-colors text-xs font-bold uppercase tracking-wider text-slate-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    <span>Permalink kopieren</span>
+                </button>
+                <div class="hidden md:flex items-center space-x-2 bg-white border border-slate-200 px-3 py-2 rounded-full shadow-sm">
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                     <span class="text-[10px] font-bold uppercase tracking-widest text-slate-600">Console Ready</span>
                 </div>
             </div>
         </header>
 
-        <main class="grid lg:grid-cols-12 gap-8">
+        <main class="space-y-8">
             
-            <!-- LEFT COLUMN: Request Builder -->
-            <div class="lg:col-span-5 space-y-6">
+            <section class="bg-white p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-100/50">
+                <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">Request Config</h2>
                 
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-100/50">
-                    <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">Request Config</h2>
-                    
-                    <form id="api-form" class="space-y-4">
-                        <!-- Method & URL -->
-                        <div class="space-y-2">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Endpoint</label>
-                            <div class="flex rounded-lg shadow-sm">
-                                <select id="method" class="rounded-l-lg border border-r-0 border-slate-200 bg-slate-50 text-slate-700 text-sm font-bold px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                    <option value="GET">GET</option>
-                                    <option value="POST">POST</option>
-                                    <option value="PUT">PUT</option>
-                                    <option value="PATCH">PATCH</option>
-                                    <option value="DELETE">DELETE</option>
-                                </select>
-                                <input type="url" id="url" value="https://jsonplaceholder.typicode.com/posts/1" placeholder="https://api..." class="flex-1 rounded-r-lg border border-slate-200 text-sm px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-slate-600 w-full" required>
-                            </div>
+                <form id="api-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="text-xs font-bold text-slate-500 uppercase">Method</label>
+                            <select id="method" class="w-full rounded-lg border border-slate-200 bg-slate-50 text-slate-700 text-sm font-bold px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="PATCH">PATCH</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
                         </div>
+                        <div class="md:col-span-10 space-y-2">
+                            <label class="text-xs font-bold text-slate-500 uppercase">Endpoint URL</label>
+                            <input type="url" id="url" value="https://jsonplaceholder.typicode.com/posts/1" placeholder="https://api..." class="w-full rounded-lg border border-slate-200 text-sm px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-slate-600" required>
+                        </div>
+                    </div>
 
-                        <!-- Request Body (Hidden for GET/DELETE) -->
-                        <div id="body-container" class="space-y-2 hidden">
-                            <label class="text-xs font-bold text-slate-500 uppercase flex justify-between">
-                                <span>Request JSON Body</span>
-                                <span class="text-slate-300 normal-case font-normal text-[10px]">(application/json)</span>
-                            </label>
-                            <textarea id="request-body" rows="6" class="w-full rounded-lg border border-slate-200 text-xs px-4 py-3 font-mono text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y" spellcheck="false">{
+                    <div id="body-container" class="space-y-2 hidden">
+                        <label class="text-xs font-bold text-slate-500 uppercase flex justify-between">
+                            <span>Request JSON Body</span>
+                            <span class="text-slate-300 normal-case font-normal text-[10px]">(application/json)</span>
+                        </label>
+                        <textarea id="request-body" rows="5" class="w-full rounded-lg border border-slate-200 text-xs px-4 py-3 font-mono text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y" spellcheck="false">{
     "title": "foo",
     "body": "bar",
     "userId": 1
 }</textarea>
-                        </div>
+                    </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" id="send-btn" class="w-full bg-slate-900 text-white px-6 py-3.5 rounded-lg hover:bg-slate-800 transition-all font-semibold shadow-lg shadow-slate-200 flex justify-center items-center space-x-2">
+                    <div class="flex flex-col md:flex-row gap-4 items-center">
+                        <button type="submit" id="send-btn" class="w-full md:w-auto min-w-[200px] bg-slate-900 text-white px-8 py-3.5 rounded-lg hover:bg-slate-800 transition-all font-semibold shadow-lg shadow-slate-200 flex justify-center items-center space-x-2">
                             <span>Request senden</span>
                             <svg id="btn-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             <svg id="btn-spinner" class="animate-spin h-4 w-4 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                         </button>
-                    </form>
-                </div>
 
-                <!-- Last Request Meta -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm opacity-60 pointer-events-none" id="req-meta-box">
-                    <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3">Request Log</h2>
-                    <div class="font-mono text-xs text-slate-500 space-y-1">
-                        <div class="flex gap-2"><span class="font-bold text-slate-700 w-16">Method:</span> <span id="log-method">-</span></div>
-                        <div class="flex gap-2"><span class="font-bold text-slate-700 w-16">Time:</span> <span id="log-time">-</span></div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- RIGHT COLUMN: Output -->
-            <div class="lg:col-span-7 flex flex-col h-full min-h-[500px]">
-                <div class="bg-slate-900 rounded-2xl shadow-2xl shadow-slate-300 flex-1 flex flex-col overflow-hidden text-slate-300 relative">
-                    
-                    <!-- Console Header -->
-                    <div class="bg-slate-800 px-4 py-3 flex justify-between items-center border-b border-slate-700">
-                        <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Response Console</span>
-                        <div class="flex items-center space-x-3 text-xs font-mono">
-                            <span id="status-badge" class="px-2 py-0.5 rounded bg-slate-700 text-slate-400 font-bold">Waiting...</span>
-                            <span id="time-badge" class="text-slate-500">0ms</span>
+                        <div class="hidden md:flex bg-slate-50 border border-slate-100 px-4 py-3 rounded-lg flex-1 items-center opacity-60 transition-opacity" id="req-meta-box">
+                            <div class="flex gap-4 font-mono text-[11px] uppercase tracking-wider text-slate-500">
+                                <div><span class="font-bold text-slate-700">Method:</span> <span id="log-method">-</span></div>
+                                <div><span class="font-bold text-slate-700">Last:</span> <span id="log-time">-</span></div>
+                            </div>
                         </div>
                     </div>
+                </form>
+            </section>
 
-                    <!-- Output Area -->
-                    <div class="flex-1 overflow-auto p-0 relative">
-                        <pre id="response-output" class="p-4 font-mono text-sm leading-relaxed text-blue-300 min-h-full">
-// Die Serverantwort wird hier erscheinen...
-// Drücke 'Request senden', um zu starten.
-                        </pre>
-                    </div>
-
-                    <!-- Footer bar -->
-                    <div class="bg-slate-800 px-4 py-2 border-t border-slate-700 flex justify-between items-center text-[10px] text-slate-500 uppercase font-bold tracking-wider">
-                        <span>application/json</span>
-                        <span>READ-ONLY</span>
+            <section class="bg-slate-900 rounded-2xl shadow-2xl shadow-slate-300 flex flex-col overflow-hidden text-slate-300 min-h-[400px]">
+                <div class="bg-slate-800 px-6 py-4 flex justify-between items-center border-b border-slate-700">
+                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Response Console</span>
+                    <div class="flex items-center space-x-4 text-xs font-mono">
+                        <span id="status-badge" class="px-2.5 py-1 rounded bg-slate-700 text-slate-400 font-bold">Waiting...</span>
+                        <span id="time-badge" class="text-slate-500">0ms</span>
                     </div>
                 </div>
-            </div>
+
+                <div class="flex-1 overflow-auto">
+                    <pre id="response-output" class="p-6 font-mono text-sm leading-relaxed text-blue-300">
+// Die Serverantwort wird hier erscheinen...
+// Drücke 'Request senden', um zu starten.
+                    </pre>
+                </div>
+
+                <div class="bg-slate-800 px-6 py-3 border-t border-slate-700 flex justify-between items-center text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em]">
+                    <span>Content-Type: application/json</span>
+                    <span>Read-Only Output</span>
+                </div>
+            </section>
 
         </main>
 
         <footer class="mt-16 text-center text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">
-            <span>&copy; 2026 API-SANDBOX &bull; Playground v1.0</span>
+            <span>&copy; 2026 API-SANDBOX &bull; Playground <span id="playgroundVersion">v?.?.?</span></span>
         </footer>
     </div>
 
-    <!-- Logic Script -->
+    <div id="toast-container" class="fixed bottom-8 right-8 z-50 flex flex-col gap-2"></div>
+
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+
         const methodSelect = document.getElementById('method');
         const bodyContainer = document.getElementById('body-container');
         const form = document.getElementById('api-form');
+        const urlInput = document.getElementById('url');
         const sendBtn = document.getElementById('send-btn');
         const btnIcon = document.getElementById('btn-icon');
         const btnSpinner = document.getElementById('btn-spinner');
+        const copyPermalinkBtn = document.getElementById('copy-permalink');
+        const bodyContent = document.getElementById('request-body');
         
-        // Output Elements
         const responseOutput = document.getElementById('response-output');
         const statusBadge = document.getElementById('status-badge');
         const timeBadge = document.getElementById('time-badge');
@@ -158,7 +162,24 @@
         const logMethod = document.getElementById('log-method');
         const logTime = document.getElementById('log-time');
 
-        // Toggle Body Input visibility based on method
+        const config = {
+            "playground_version": "1.1.2"
+        };
+
+        const initialUrl = urlParams.get("url");
+        const initialMethod = urlParams.get("method");
+        const initialRequestBody = urlParams.get("body-content");
+
+        if (initialUrl) {
+            urlInput.value = decodeURIComponent(initialUrl);
+        }
+        if (initialMethod) {
+            methodSelect.value = initialMethod.toUpperCase();
+        }
+        if (initialRequestBody) {
+            bodyContent.value = decodeURIComponent(initialRequestBody);
+        }
+
         methodSelect.addEventListener('change', () => {
             const method = methodSelect.value;
             if (['GET', 'DELETE'].includes(method)) {
@@ -168,14 +189,27 @@
             }
         });
 
-        // Initialize view
         methodSelect.dispatchEvent(new Event('change'));
 
-        // Form Submit Handler
+        copyPermalinkBtn.addEventListener('click', () => {
+            const currentUrl = new URL(window.location.origin + window.location.pathname);
+            currentUrl.searchParams.set('url', urlInput.value);
+            if (!['GET'].includes(methodSelect.value)) {
+                currentUrl.searchParams.set('method', methodSelect.value);
+            };
+            if (!['GET', 'DELETE'].includes(methodSelect.value)) {
+                currentUrl.searchParams.set('body-content', bodyContent.value);
+            };
+            navigator.clipboard.writeText(currentUrl.toString()).then(() => {
+                showToast("Link in die Zwischenablage kopiert!", "success", 3000);
+            }).catch(() => {
+                showToast("Fehler beim Kopieren", "error", 3000);
+            });
+        });
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // UI Loading State
             sendBtn.disabled = true;
             sendBtn.classList.add('opacity-75', 'cursor-not-allowed');
             btnIcon.classList.add('hidden');
@@ -183,9 +217,9 @@
             responseOutput.textContent = "// Loading...";
             responseOutput.classList.add('text-slate-500');
             
-            const url = document.getElementById('url').value;
+            const url = urlInput.value;
             const method = methodSelect.value;
-            const bodyContent = document.getElementById('request-body').value;
+            const bodyContent = bodyContent.value;
             
             let options = {
                 method: method,
@@ -195,14 +229,12 @@
                 }
             };
 
-            // Add body if allowed method
             if (!['GET', 'DELETE'].includes(method)) {
                 try {
-                    // Minify json first to validate
                     JSON.parse(bodyContent);
                     options.body = bodyContent;
                 } catch (err) {
-                    alert("Invalid JSON in request body");
+                    showToast("Ungültiges JSON im Body", "error", 4000);
                     resetBtn();
                     return;
                 }
@@ -215,7 +247,6 @@
                 const endTime = performance.now();
                 const duration = (endTime - startTime).toFixed(0);
 
-                // Handle Content
                 let data;
                 const contentType = response.headers.get("content-type");
                 if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -224,33 +255,30 @@
                     data = await response.text();
                 }
 
-                // Render UI
                 renderResponse(response.status, response.statusText, duration, data);
                 
-                // Update Log
-                reqMetaBox.classList.remove('opacity-60', 'pointer-events-none');
+                reqMetaBox.classList.remove('opacity-60');
                 logMethod.textContent = method;
                 logTime.textContent = new Date().toLocaleTimeString();
 
             } catch (error) {
                 renderResponse('ERR', 'Network Error', 0, { error: error.message });
+                showToast("Netzwerkfehler aufgetreten", "error", 4000);
             } finally {
                 resetBtn();
             }
         });
 
         function renderResponse(status, statusText, time, data) {
-            // Colors based on Status
             statusBadge.textContent = `${status} ${statusText || ''}`;
             timeBadge.textContent = `${time}ms`;
-            
-            statusBadge.className = "px-2 py-0.5 rounded font-bold transition-colors duration-300";
+            statusBadge.className = "px-2.5 py-1 rounded font-bold transition-colors duration-300";
 
             if (status >= 200 && status < 300) {
                 statusBadge.classList.add('bg-green-500', 'text-white');
                 responseOutput.classList.remove('text-red-400');
                 responseOutput.classList.add('text-blue-300');
-            } else if (status >= 400) {
+            } else if (status >= 400 || status === 'ERR') {
                 statusBadge.classList.add('bg-red-500', 'text-white');
                 responseOutput.classList.remove('text-blue-300');
                 responseOutput.classList.add('text-red-400');
@@ -258,7 +286,6 @@
                 statusBadge.classList.add('bg-orange-500', 'text-white');
             }
 
-            // Pretty Print JSON
             if (typeof data === 'object') {
                 responseOutput.textContent = JSON.stringify(data, null, 2);
             } else {
@@ -272,6 +299,38 @@
             btnIcon.classList.remove('hidden');
             btnSpinner.classList.add('hidden');
         }
+
+        function showToast(message, status = 'success', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgColor = status === 'success' ? 'bg-slate-900' : 'bg-red-600';
+            
+            toast.className = `${bgColor} text-white px-6 py-3 rounded-xl shadow-xl text-sm font-medium transition-all duration-300 toast-enter flex items-center space-x-3`;
+            toast.innerHTML = `
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-active');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.remove('toast-active');
+                toast.classList.add('toast-enter');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        function updatePlaygroundVersion(event) {
+            event.preventDefault();
+            document.getElementById('playgroundVersion').innerHTML = `v${config.playground_version}`;
+        }
+
+	    document.addEventListener('DOMContentLoaded', updatePlaygroundVersion);
     </script>
 </body>
 </html>
