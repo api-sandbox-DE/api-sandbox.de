@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutz | api-sandbox.de</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; background-color: #fafafa; }</style>
+</head>
+<body class="text-slate-900 antialiased min-h-screen flex flex-col py-10">
+    <div class="max-w-3xl mx-auto w-full px-6">
+        <header class="mb-10">
+            <a href="index.html" class="group flex items-center space-x-2 text-sm font-bold text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-widest mb-4">
+                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <span>Zurück</span>
+            </a>
+            <h1 class="text-4xl font-extrabold tracking-tight">Datenschutz</h1>
+        </header>
+        <main class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm space-y-8">
+            <section>
+                <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Allgemeines</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Diese Webseite wird über <strong>GitHub Pages</strong> gehostet. Beim Besuch dieser Webseite werden automatisch Informationen durch den Hosting-Anbieter (GitHub, Inc.) erhoben und gespeichert. Die Seite selbst sammelt an sich keine weiteren Daten.
+                </p>
+            </section>
+
+            <section class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">API Playground & Externe Aufrufe</h2>
+                <div class="space-y-4 text-slate-700 text-sm leading-relaxed">
+                    <p>
+                        <strong>Wichtiger Hinweis:</strong> Beim Benutzen des API Playgrounds oder beim Aufrufen einer API-Adresse über dieses Tool wird der Request direkt vom <strong>Gerät des Nutzers</strong> (Client-Side) ausgeführt.
+                    </p>
+                    <p>
+                        Der aufgerufene API-Dienst bzw. die Ziel-URL kann dadurch Daten wie Ihre IP-Adresse, Browser-Informationen sowie die übermittelten Header und Body-Inhalte einsehen. 
+                    </p>
+                    <p>
+                        Diese Übermittlung erfolgt direkt zwischen Ihrem Browser und dem Ziel-Server. api-sandbox.de fungiert hierbei lediglich als Interface und speichert diese Anfragen nicht zwischen.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Hosting</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    GitHub kann Log-Dateien sammeln, die Informationen wie IP-Adressen, Browsertyp und Zeitstempel enthalten, um die Sicherheit des Dienstes zu gewährleisten. Weitere Informationen finden Sie in der Datenschutzerklärung von GitHub.
+                </p>
+            </section>
+        </main>
+        <footer class="mt-16 text-center text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">
+            <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
+        </footer>
+    </div>
+</body>
+</html>
