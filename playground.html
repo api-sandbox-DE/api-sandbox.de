@@ -153,6 +153,7 @@
         const btnIcon = document.getElementById('btn-icon');
         const btnSpinner = document.getElementById('btn-spinner');
         const copyPermalinkBtn = document.getElementById('copy-permalink');
+        const bodyContent = document.getElementById('request-body');
         
         const responseOutput = document.getElementById('response-output');
         const statusBadge = document.getElementById('status-badge');
@@ -162,17 +163,21 @@
         const logTime = document.getElementById('log-time');
 
         const config = {
-            "playground_version": "1.0.4"
+            "playground_version": "1.1.2"
         };
 
         const initialUrl = urlParams.get("url");
         const initialMethod = urlParams.get("method");
+        const initialRequestBody = urlParams.get("body-content");
 
         if (initialUrl) {
             urlInput.value = decodeURIComponent(initialUrl);
         }
         if (initialMethod) {
             methodSelect.value = initialMethod.toUpperCase();
+        }
+        if (initialRequestBody) {
+            bodyContent.value = decodeURIComponent(initialRequestBody);
         }
 
         methodSelect.addEventListener('change', () => {
@@ -189,8 +194,12 @@
         copyPermalinkBtn.addEventListener('click', () => {
             const currentUrl = new URL(window.location.origin + window.location.pathname);
             currentUrl.searchParams.set('url', urlInput.value);
-            currentUrl.searchParams.set('method', methodSelect.value);
-            
+            if (!['GET'].includes(methodSelect.value)) {
+                currentUrl.searchParams.set('method', methodSelect.value);
+            };
+            if (!['GET', 'DELETE'].includes(methodSelect.value)) {
+                currentUrl.searchParams.set('body-content', bodyContent.value);
+            };
             navigator.clipboard.writeText(currentUrl.toString()).then(() => {
                 showToast("Link in die Zwischenablage kopiert!", "success", 3000);
             }).catch(() => {
@@ -210,7 +219,7 @@
             
             const url = urlInput.value;
             const method = methodSelect.value;
-            const bodyContent = document.getElementById('request-body').value;
+            const bodyContent = bodyContent.value;
             
             let options = {
                 method: method,
