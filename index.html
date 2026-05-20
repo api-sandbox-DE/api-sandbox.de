@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free REST API Sandbox and Playground for your prototyping needs.">
     <title>api-sandbox.de | Kostenfreie REST-API</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,9 +86,12 @@
                 <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
                 <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
             </div>
-            <span>&copy; 2026 API-SANDBOX</span>
+            <span>&copy; <span id="copyright-year"></span> API-SANDBOX</span>
         </footer>
     </div>
 
+    <script>
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free REST API Sandbox and Playground for your prototyping needs.">
     <title>api-sandbox.de | API Playground</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -140,7 +141,7 @@
                 <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
                 <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
             </div>
-            <span>&copy; 2026 API-SANDBOX &bull; Playground <span id="playgroundVersion">v?.?.?</span></span>
+            <span>&copy; <span id="copyright-year"></span> API-SANDBOX &bull; Playground <span id="playgroundVersion">v?.?.?</span></span>
         </footer>
     </div>
 
@@ -195,33 +196,38 @@
 
         methodSelect.dispatchEvent(new Event('change'));
 
-        function updateUrl(lin = null) {
-            console.log("WIP")
-        };
-
-        function copyPermalink(e = null) {
-            e.preventDefault()
+        function updateUrl() {
             const currentUrl = new URL(window.location.origin + window.location.pathname);
             currentUrl.searchParams.set('url', urlInput.value);
             if (!['GET'].includes(methodSelect.value)) {
                 currentUrl.searchParams.set('method', methodSelect.value);
-            };
+            } else {
+                currentUrl.searchParams.delete('method');
+            }
             if (!['GET', 'DELETE'].includes(methodSelect.value)) {
                 currentUrl.searchParams.set('body-content', requestBody.value);
-            };
+            } else {
+                currentUrl.searchParams.delete('body-content');
+            }
+            window.history.replaceState({}, '', currentUrl.toString());
+            return currentUrl;
+        }
+
+        function copyPermalink(e = null) {
+            if (e) e.preventDefault();
+            const currentUrl = updateUrl();
             navigator.clipboard.writeText(currentUrl.toString()).then(() => {
                 showToast("Link in die Zwischenablage kopiert!", "success", 3000);
             }).catch(() => {
                 showToast("Fehler beim Kopieren", "error", 3000);
             });
-
-            updateUrl(url);
         }
 
         copyPermalinkBtn.addEventListener('click', copyPermalink);
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            updateUrl();
             
             sendBtn.disabled = true;
             sendBtn.classList.add('opacity-75', 'cursor-not-allowed');
@@ -341,6 +347,7 @@
         function updatePlaygroundVersion(event) {
             event.preventDefault();
             document.getElementById('playgroundVersion').innerHTML = `v${config.playground_version}`;
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
         }
 
 	    document.addEventListener('DOMContentLoaded', updatePlaygroundVersion);
