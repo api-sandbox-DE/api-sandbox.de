@@ -22,7 +22,7 @@
             <section>
                 <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Allgemeines</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    Diese Webseite wird über <strong>GitHub Pages</strong> gehostet. Beim Besuch dieser Webseite werden automatisch Informationen durch den Hosting-Anbieter (GitHub, Inc.) erhoben und gespeichert. Die Seite selbst sammelt an sich keine weiteren Daten.
+                    Diese Webseite wird über <strong>GitHub Pages by Microsoft</strong> gehostet. Beim Besuch dieser Webseite werden automatisch Informationen durch den Hosting-Anbieter (GitHub, Inc.) erhoben und gespeichert. Die Seite selbst sammelt an sich keine weiteren Daten.
                 </p>
             </section>
 
@@ -44,13 +44,24 @@
             <section>
                 <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Hosting</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    GitHub kann Log-Dateien sammeln, die Informationen wie IP-Adressen, Browsertyp und Zeitstempel enthalten, um die Sicherheit des Dienstes zu gewährleisten. Weitere Informationen finden Sie in der Datenschutzerklärung von GitHub.
+                    GitHub (by Microsoft) kann Log-Dateien sammeln, die Informationen wie IP-Adressen, Browsertyp und Zeitstempel enthalten, um die Sicherheit des Dienstes zu gewährleisten. Weitere Informationen finden Sie in der Datenschutzerklärung von GitHub.
                 </p>
             </section>
         </main>
-        <footer class="mt-16 text-center text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">
-            <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
+        <footer class="mt-16 border-t border-slate-200 pt-8 pb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
+                </div>
+                <span>&copy; <span id="copyright-year"></span> API-SANDBOX</span>
+            </div>
+            <div class="text-[10px] text-slate-400 leading-relaxed max-w-3xl mx-auto text-center mt-6">
+                A Project by MTEX.dev, ternis-edv.de and xpsystems.eu (By Fabian Ternis(fabianternis.de / fabianternis.dev))<br>Domain by dnbx.de ... Hosted on GitHub Pages by Microsoft
+            </div>
         </footer>
+        <script>
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        </script>
     </div>
 </body>
 </html>
