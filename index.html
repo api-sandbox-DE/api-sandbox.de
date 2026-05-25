@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free REST API Sandbox and Playground for your prototyping needs.">
+    <meta name="description" content="Kostenlose REST-API-Sandbox und Playground für Ihre Prototyping-Anforderungen.">
     <title>api-sandbox.de | Kostenfreie REST-API</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
                 <header class="mb-8">
                     <div class="h-1 w-12 bg-blue-600 mb-6"></div>
                     <h1 class="text-5xl font-extrabold tracking-tight mb-4">api-sandbox.de</h1>
-                    <p class="text-xl text-slate-500 font-medium">Ready-to-use REST API für deine nächsten Prototypen.</p>
+                    <p class="text-xl text-slate-500 font-medium">Sofort einsatzbereite REST-API für deine nächsten Prototypen.</p>
                 </header>
 
                 <div class="flex items-center space-x-3 mb-10 bg-white border border-slate-200 w-fit px-4 py-2 rounded-full shadow-sm">
@@ -83,16 +83,82 @@
         <footer class="mt-16 border-t border-slate-200 pt-8 pb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
                 <div class="flex flex-col md:flex-row gap-4 items-center">
-                    <a href="https://github.com/api-sandbox-DE/api-sandbox.de/edit/main/index.html" class="hover:text-blue-600 transition-colors italic">Source Edit</a>
-                    <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
-                    <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+                    <a href="https://github.com/api-sandbox-DE/api-sandbox.de/edit/main/index.html" class="hover:text-blue-600 transition-colors italic">Quellcode bearbeiten</a>
+                    <a href="#" onclick="openModal('impressum'); return false;" class="hover:text-blue-600 transition-colors">Impressum</a>
+                    <a href="#" onclick="openModal('datenschutz'); return false;" class="hover:text-blue-600 transition-colors">Datenschutz</a>
                 </div>
                 <span>&copy; <span id="copyright-year"></span> API-SANDBOX</span>
             </div>
             <div class="text-[10px] text-slate-400 leading-relaxed max-w-3xl mx-auto text-center mt-6">
-                A Project by MTEX.dev, ternis-edv.de and xpsystems.eu (By Fabian Ternis(fabianternis.de / fabianternis.dev))<br>Domain by dnbx.de ... Hosted on GitHub Pages by Microsoft
+                Ein Projekt von MTEX.dev, ternis-edv.de und xpsystems.eu (Von Fabian Ternis(fabianternis.de / fabianternis.dev))<br>Domain von dnbx.de ... Gehostet auf GitHub Pages von Microsoft
             </div>
         </footer>
+    </div>
+
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden opacity-0 transition-opacity duration-300" onclick="closeModal()"></div>
+
+    <div id="impressum-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 pointer-events-none">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col pointer-events-auto transform scale-95 transition-transform duration-300">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-slate-800">Impressum</h2>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-6">
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Angaben gemäß § 5 TMG</h3>
+                    <p class="text-lg font-medium">Fabian Ternis</p>
+                    <p class="text-slate-600">Alzeyer Str. 97<br>67592 Flörsheim-Dalsheim<br>Deutschland</p>
+                </section>
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Projekt Information</h3>
+                    <p class="text-slate-600">Ein Projekt von MTEX.dev, ternis-edv.de und xpsystems.eu (Von Fabian Ternis(fabianternis.de / fabianternis.dev))</p>
+                    <p class="text-slate-600 mt-2">Domain von dnbx.de</p>
+                    <p class="text-slate-600 mt-2">Gehostet auf GitHub Pages von Microsoft</p>
+                </section>
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Kontakt</h3>
+                    <p class="text-slate-600">E-Mail: <a href="mailto:f.ternis@xpsystems.eu" class="text-blue-600 hover:underline">f.ternis@xpsystems.eu</a></p>
+                    <p class="text-slate-600">Website: <a href="https://fabianternis.de" target="_blank" class="text-blue-600 hover:underline">fabianternis.de</a></p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div id="datenschutz-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 pointer-events-none">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col pointer-events-auto transform scale-95 transition-transform duration-300">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-slate-800">Datenschutz</h2>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-6">
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Allgemeines</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Diese Webseite wird über <strong>GitHub Pages von Microsoft</strong> gehostet. Beim Besuch dieser Webseite werden automatisch Informationen durch den Hosting-Anbieter (GitHub, Inc.) erhoben und gespeichert. Die Seite selbst sammelt an sich keine weiteren Daten.
+                    </p>
+                </section>
+                <section class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">API Playground & Externe Aufrufe</h3>
+                    <div class="space-y-3 text-slate-700 text-sm leading-relaxed">
+                        <p><strong>Wichtiger Hinweis:</strong> Beim Benutzen des API Playgrounds oder beim Aufrufen einer API-Adresse über dieses Tool wird der Request direkt vom <strong>Gerät des Nutzers</strong> (Client-Side) ausgeführt.</p>
+                        <p>Der aufgerufene API-Dienst bzw. die Ziel-URL kann dadurch Daten wie Ihre IP-Adresse, Browser-Informationen sowie die übermittelten Header und Body-Inhalte einsehen.</p>
+                        <p>Diese Übermittlung erfolgt direkt zwischen Ihrem Browser und dem Ziel-Server. api-sandbox.de fungiert hierbei lediglich als Interface und speichert diese Anfragen nicht zwischen.</p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Hosting</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        GitHub (von Microsoft) kann Log-Dateien sammeln, die Informationen wie IP-Adressen, Browsertyp und Zeitstempel enthalten, um die Sicherheit des Dienstes zu gewährleisten. Weitere Informationen finden Sie in der Datenschutzerklärung von GitHub.
+                    </p>
+                </section>
+            </div>
+        </div>
     </div>
 
     <div id="toast-container" class="fixed bottom-8 right-8 z-50 flex flex-col gap-2"></div>
@@ -128,6 +194,42 @@
             }, duration);
         }
 
+
+        function openModal(id) {
+            const overlay = document.getElementById('modal-overlay');
+            const modal = document.getElementById(id + '-modal');
+            const modalContent = modal.querySelector('div');
+
+            overlay.classList.remove('hidden');
+            modal.classList.remove('hidden');
+
+            // Trigger reflow
+            void overlay.offsetWidth;
+
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+        }
+
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const modals = document.querySelectorAll('[id$="-modal"]');
+
+            overlay.classList.add('opacity-0');
+
+            modals.forEach(modal => {
+                if (!modal.classList.contains('hidden')) {
+                    modal.classList.add('opacity-0');
+                    const modalContent = modal.querySelector('div');
+                    modalContent.classList.add('scale-95');
+
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        overlay.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        }
     </script>
 </body>
 </html>
