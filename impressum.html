@@ -25,14 +25,31 @@
                 <p class="text-slate-600">Alzeyer Str. 97<br>67592 Flörsheim-Dalsheim<br>Deutschland</p>
             </section>
             <section>
+                <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Projekt Information</h2>
+                <p class="text-slate-600">A Project by MTEX.dev, ternis-edv.de and xpsystems.eu (By Fabian Ternis(fabianternis.de / fabianternis.dev))</p>
+                <p class="text-slate-600 mt-2">Domain by dnbx.de</p>
+                <p class="text-slate-600 mt-2">Hosted on GitHub Pages by Microsoft</p>
+            </section>
+            <section>
                 <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Kontakt</h2>
                 <p class="text-slate-600">E-Mail: <a href="mailto:f.ternis@xpsystems.eu" class="text-blue-600 hover:underline">f.ternis@xpsystems.eu</a></p>
                 <p class="text-slate-600">Website: <a href="https://fabianternis.de" target="_blank" class="text-blue-600 hover:underline">fabianternis.de</a></p>
             </section>
         </main>
-        <footer class="mt-16 text-center text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">
-            <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+        <footer class="mt-16 border-t border-slate-200 pt-8 pb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+                </div>
+                <span>&copy; <span id="copyright-year"></span> API-SANDBOX</span>
+            </div>
+            <div class="text-[10px] text-slate-400 leading-relaxed max-w-3xl mx-auto text-center mt-6">
+                A Project by MTEX.dev, ternis-edv.de and xpsystems.eu (By Fabian Ternis(fabianternis.de / fabianternis.dev))<br>Domain by dnbx.de ... Hosted on GitHub Pages by Microsoft
+            </div>
         </footer>
+        <script>
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        </script>
     </div>
 </body>
 </html>

@@ -48,15 +48,20 @@
                 <h1 class="text-4xl font-extrabold tracking-tight">API Playground</h1>
                 <p class="text-slate-500 font-medium mt-2">Teste Endpunkte, inspiziere Header und debugge deine Requests live.</p>
             </div>
-            <div class="flex items-center space-x-3">
+            <div class="flex flex-wrap items-center gap-3">
+                <button id="import-json" class="flex items-center space-x-2 bg-white border border-slate-200 px-4 py-2 rounded-lg shadow-sm hover:bg-slate-50 transition-colors text-xs font-bold uppercase tracking-wider text-slate-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    <span>Import</span>
+                </button>
+                <input type="file" id="import-file" class="hidden" accept=".json">
+                <button id="export-json" class="flex items-center space-x-2 bg-white border border-slate-200 px-4 py-2 rounded-lg shadow-sm hover:bg-slate-50 transition-colors text-xs font-bold uppercase tracking-wider text-slate-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span>Export</span>
+                </button>
                 <button id="copy-permalink" class="flex items-center space-x-2 bg-white border border-slate-200 px-4 py-2 rounded-lg shadow-sm hover:bg-slate-50 transition-colors text-xs font-bold uppercase tracking-wider text-slate-600">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                     <span>Permalink kopieren</span>
                 </button>
-                <div class="hidden md:flex items-center space-x-2 bg-white border border-slate-200 px-3 py-2 rounded-full shadow-sm">
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-600">Console Ready</span>
-                </div>
             </div>
         </header>
 
@@ -136,12 +141,17 @@
 
         </main>
 
-        <footer class="mt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
-            <div class="flex gap-4">
-                <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
-                <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+        <footer class="mt-16 border-t border-slate-200 pt-8 pb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
+                    <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+                </div>
+                <span>&copy; <span id="copyright-year"></span> API-SANDBOX &bull; Playground <span id="playgroundVersion">v?.?.?</span></span>
             </div>
-            <span>&copy; <span id="copyright-year"></span> API-SANDBOX &bull; Playground <span id="playgroundVersion">v?.?.?</span></span>
+            <div class="text-[10px] text-slate-400 leading-relaxed max-w-3xl mx-auto text-center mt-6">
+                A Project by MTEX.dev, ternis-edv.de and xpsystems.eu (By Fabian Ternis(fabianternis.de / fabianternis.dev))<br>Domain by dnbx.de ... Hosted on GitHub Pages by Microsoft
+            </div>
         </footer>
     </div>
 
@@ -158,6 +168,9 @@
         const btnIcon = document.getElementById('btn-icon');
         const btnSpinner = document.getElementById('btn-spinner');
         const copyPermalinkBtn = document.getElementById('copy-permalink');
+        const importBtn = document.getElementById('import-json');
+        const exportBtn = document.getElementById('export-json');
+        const importFile = document.getElementById('import-file');
         const requestBody = document.getElementById('request-body');
         
         const responseOutput = document.getElementById('response-output');
@@ -224,6 +237,52 @@
         }
 
         copyPermalinkBtn.addEventListener('click', copyPermalink);
+
+        exportBtn.addEventListener('click', () => {
+            const data = {
+                url: urlInput.value,
+                method: methodSelect.value,
+                bodyContent: !['GET', 'DELETE'].includes(methodSelect.value) ? requestBody.value : ''
+            };
+            const jsonString = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'api-sandbox-request.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("Export erfolgreich", "success", 3000);
+        });
+
+        importBtn.addEventListener('click', () => {
+            importFile.click();
+        });
+
+        importFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.url) urlInput.value = data.url;
+                    if (data.method) {
+                        methodSelect.value = data.method;
+                        methodSelect.dispatchEvent(new Event('change'));
+                    }
+                    if (data.bodyContent) requestBody.value = data.bodyContent;
+                    showToast("Import erfolgreich", "success", 3000);
+                } catch (err) {
+                    showToast("Fehler beim Importieren der Datei", "error", 3000);
+                }
+                importFile.value = ''; // Reset input
+            };
+            reader.readAsText(file);
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
