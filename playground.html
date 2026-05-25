@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free REST API Sandbox and Playground for your prototyping needs.">
+    <meta name="description" content="Kostenlose REST-API-Sandbox und Playground für Ihre Prototyping-Anforderungen.">
     <title>api-sandbox.de | API Playground</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,12 +68,12 @@
         <main class="space-y-8">
             
             <section class="bg-white p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-100/50">
-                <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">Request Config</h2>
+                <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">Anfrage-Konfiguration</h2>
                 
                 <form id="api-form" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
                         <div class="md:col-span-2 space-y-2">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Method</label>
+                            <label class="text-xs font-bold text-slate-500 uppercase">Methode</label>
                             <select id="method" class="w-full rounded-lg border border-slate-200 bg-slate-50 text-slate-700 text-sm font-bold px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="GET">GET</option>
                                 <option value="POST">POST</option>
@@ -83,14 +83,24 @@
                             </select>
                         </div>
                         <div class="md:col-span-10 space-y-2">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Endpoint URL</label>
+                            <label class="text-xs font-bold text-slate-500 uppercase">Endpunkt-URL</label>
                             <input type="url" id="url" value="https://nx.mtex.dev/" placeholder="https://api..." class="w-full rounded-lg border border-slate-200 text-sm px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-slate-600" required>
                         </div>
                     </div>
 
+                    <div id="headers-container" class="space-y-2 mb-4">
+                        <label class="text-xs font-bold text-slate-500 uppercase flex justify-between">
+                            <span>Anfrage-Header (JSON)</span>
+                            <span class="text-slate-300 normal-case font-normal text-[10px]">(optional)</span>
+                        </label>
+                        <textarea id="request-headers" rows="3" class="w-full rounded-lg border border-slate-200 text-xs px-4 py-3 font-mono text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y" spellcheck="false">{
+    "Authorization": "Bearer YOUR_TOKEN"
+}</textarea>
+                    </div>
+
                     <div id="body-container" class="space-y-2 hidden">
                         <label class="text-xs font-bold text-slate-500 uppercase flex justify-between">
-                            <span>Request JSON Body</span>
+                            <span>Anfrage-JSON-Body</span>
                             <span class="text-slate-300 normal-case font-normal text-[10px]">(application/json)</span>
                         </label>
                         <textarea id="request-body" rows="5" class="w-full rounded-lg border border-slate-200 text-xs px-4 py-3 font-mono text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y" spellcheck="false">{
@@ -119,9 +129,9 @@
 
             <section class="bg-slate-900 rounded-2xl shadow-2xl shadow-slate-300 flex flex-col overflow-hidden text-slate-300 min-h-[400px]">
                 <div class="bg-slate-800 px-6 py-4 flex justify-between items-center border-b border-slate-700">
-                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Response Console</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Antwort-Konsole</span>
                     <div class="flex items-center space-x-4 text-xs font-mono">
-                        <span id="status-badge" class="px-2.5 py-1 rounded bg-slate-700 text-slate-400 font-bold">Waiting...</span>
+                        <span id="status-badge" class="px-2.5 py-1 rounded bg-slate-700 text-slate-400 font-bold">Warten...</span>
                         <span id="time-badge" class="text-slate-500">0ms</span>
                     </div>
                 </div>
@@ -135,7 +145,7 @@
 
                 <div class="bg-slate-800 px-6 py-3 border-t border-slate-700 flex justify-between items-center text-[10px] text-slate-500 uppercase font-bold tracking-[0.2em]">
                     <span>Content-Type: application/json</span>
-                    <span>Read-Only Output</span>
+                    <span>Schreibgeschützte Ausgabe</span>
                 </div>
             </section>
 
@@ -144,15 +154,81 @@
         <footer class="mt-16 border-t border-slate-200 pt-8 pb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
                 <div class="flex flex-col md:flex-row gap-4 items-center">
-                    <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
-                    <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+                    <a href="#" onclick="openModal('impressum'); return false;" class="hover:text-blue-600 transition-colors">Impressum</a>
+                    <a href="#" onclick="openModal('datenschutz'); return false;" class="hover:text-blue-600 transition-colors">Datenschutz</a>
                 </div>
                 <span>&copy; <span id="copyright-year"></span> API-SANDBOX &bull; Playground <span id="playgroundVersion">v?.?.?</span></span>
             </div>
             <div class="text-[10px] text-slate-400 leading-relaxed max-w-3xl mx-auto text-center mt-6">
-                A Project by MTEX.dev, ternis-edv.de and xpsystems.eu (By Fabian Ternis(fabianternis.de / fabianternis.dev))<br>Domain by dnbx.de ... Hosted on GitHub Pages by Microsoft
+                Ein Projekt von MTEX.dev, ternis-edv.de und xpsystems.eu (Von Fabian Ternis(fabianternis.de / fabianternis.dev))<br>Domain von dnbx.de ... Gehostet auf GitHub Pages von Microsoft
             </div>
         </footer>
+    </div>
+
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden opacity-0 transition-opacity duration-300" onclick="closeModal()"></div>
+
+    <div id="impressum-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 pointer-events-none">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col pointer-events-auto transform scale-95 transition-transform duration-300">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-slate-800">Impressum</h2>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-6">
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Angaben gemäß § 5 TMG</h3>
+                    <p class="text-lg font-medium">Fabian Ternis</p>
+                    <p class="text-slate-600">Alzeyer Str. 97<br>67592 Flörsheim-Dalsheim<br>Deutschland</p>
+                </section>
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Projekt Information</h3>
+                    <p class="text-slate-600">Ein Projekt von MTEX.dev, ternis-edv.de und xpsystems.eu (Von Fabian Ternis(fabianternis.de / fabianternis.dev))</p>
+                    <p class="text-slate-600 mt-2">Domain von dnbx.de</p>
+                    <p class="text-slate-600 mt-2">Gehostet auf GitHub Pages von Microsoft</p>
+                </section>
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Kontakt</h3>
+                    <p class="text-slate-600">E-Mail: <a href="mailto:f.ternis@xpsystems.eu" class="text-blue-600 hover:underline">f.ternis@xpsystems.eu</a></p>
+                    <p class="text-slate-600">Website: <a href="https://fabianternis.de" target="_blank" class="text-blue-600 hover:underline">fabianternis.de</a></p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div id="datenschutz-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 pointer-events-none">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col pointer-events-auto transform scale-95 transition-transform duration-300">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-slate-800">Datenschutz</h2>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-6">
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Allgemeines</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Diese Webseite wird über <strong>GitHub Pages von Microsoft</strong> gehostet. Beim Besuch dieser Webseite werden automatisch Informationen durch den Hosting-Anbieter (GitHub, Inc.) erhoben und gespeichert. Die Seite selbst sammelt an sich keine weiteren Daten.
+                    </p>
+                </section>
+                <section class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">API Playground & Externe Aufrufe</h3>
+                    <div class="space-y-3 text-slate-700 text-sm leading-relaxed">
+                        <p><strong>Wichtiger Hinweis:</strong> Beim Benutzen des API Playgrounds oder beim Aufrufen einer API-Adresse über dieses Tool wird der Request direkt vom <strong>Gerät des Nutzers</strong> (Client-Side) ausgeführt.</p>
+                        <p>Der aufgerufene API-Dienst bzw. die Ziel-URL kann dadurch Daten wie Ihre IP-Adresse, Browser-Informationen sowie die übermittelten Header und Body-Inhalte einsehen.</p>
+                        <p>Diese Übermittlung erfolgt direkt zwischen Ihrem Browser und dem Ziel-Server. api-sandbox.de fungiert hierbei lediglich als Interface und speichert diese Anfragen nicht zwischen.</p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Hosting</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        GitHub (von Microsoft) kann Log-Dateien sammeln, die Informationen wie IP-Adressen, Browsertyp und Zeitstempel enthalten, um die Sicherheit des Dienstes zu gewährleisten. Weitere Informationen finden Sie in der Datenschutzerklärung von GitHub.
+                    </p>
+                </section>
+            </div>
+        </div>
     </div>
 
     <div id="toast-container" class="fixed bottom-8 right-8 z-50 flex flex-col gap-2"></div>
@@ -172,6 +248,7 @@
         const exportBtn = document.getElementById('export-json');
         const importFile = document.getElementById('import-file');
         const requestBody = document.getElementById('request-body');
+        const requestHeaders = document.getElementById('request-headers');
         
         const responseOutput = document.getElementById('response-output');
         const statusBadge = document.getElementById('status-badge');
@@ -187,6 +264,7 @@
         const initialUrl = urlParams.get("url");
         const initialMethod = urlParams.get("method");
         const initialRequestBody = urlParams.get("body-content");
+        const initialRequestHeaders = urlParams.get("headers-content");
 
         if (initialUrl) {
             urlInput.value = decodeURIComponent(initialUrl);
@@ -196,6 +274,9 @@
         }
         if (initialRequestBody) {
             requestBody.value = decodeURIComponent(initialRequestBody);
+        }
+        if (initialRequestHeaders) {
+            requestHeaders.value = decodeURIComponent(initialRequestHeaders);
         }
 
         methodSelect.addEventListener('change', () => {
@@ -222,6 +303,11 @@
             } else {
                 currentUrl.searchParams.delete('body-content');
             }
+            if (requestHeaders.value && requestHeaders.value.trim() !== '' && requestHeaders.value !== '{\n    "Authorization": "Bearer YOUR_TOKEN"\n}') {
+                currentUrl.searchParams.set('headers-content', requestHeaders.value);
+            } else {
+                currentUrl.searchParams.delete('headers-content');
+            }
             window.history.replaceState({}, '', currentUrl.toString());
             return currentUrl;
         }
@@ -242,7 +328,8 @@
             const data = {
                 url: urlInput.value,
                 method: methodSelect.value,
-                bodyContent: !['GET', 'DELETE'].includes(methodSelect.value) ? requestBody.value : ''
+                bodyContent: !['GET', 'DELETE'].includes(methodSelect.value) ? requestBody.value : '',
+                headersContent: requestHeaders.value
             };
             const jsonString = JSON.stringify(data, null, 2);
             const blob = new Blob([jsonString], { type: 'application/json' });
@@ -275,6 +362,7 @@
                         methodSelect.dispatchEvent(new Event('change'));
                     }
                     if (data.bodyContent) requestBody.value = data.bodyContent;
+                    if (data.headersContent) requestHeaders.value = data.headersContent;
                     showToast("Import erfolgreich", "success", 3000);
                 } catch (err) {
                     showToast("Fehler beim Importieren der Datei", "error", 3000);
@@ -292,12 +380,13 @@
             sendBtn.classList.add('opacity-75', 'cursor-not-allowed');
             btnIcon.classList.add('hidden');
             btnSpinner.classList.remove('hidden');
-            responseOutput.textContent = "// Loading...";
+            responseOutput.textContent = "// Wird geladen...";
             responseOutput.classList.add('text-slate-500');
             
             const url = urlInput.value;
             const method = methodSelect.value;
             const bodyContent = requestBody.value;
+            const headersContent = requestHeaders.value;
             
             let options = {
                 method: method,
@@ -306,6 +395,17 @@
                     'Accept': 'application/json'
                 }
             };
+
+            if (headersContent && headersContent.trim() !== '') {
+                try {
+                    const parsedHeaders = JSON.parse(headersContent);
+                    options.headers = { ...options.headers, ...parsedHeaders };
+                } catch (err) {
+                    showToast("Ungültiges JSON in den Headern", "error", 4000);
+                    resetBtn();
+                    return;
+                }
+            }
 
             if (!['GET', 'DELETE'].includes(method)) {
                 try {
@@ -340,7 +440,7 @@
                 logTime.textContent = new Date().toLocaleTimeString();
 
             } catch (error) {
-                renderResponse('ERR', 'Network Error', 0, { error: error.message });
+                renderResponse('ERR', 'Netzwerkfehler', 0, { error: error.message });
                 showToast("Netzwerkfehler aufgetreten", "error", 4000);
             } finally {
                 resetBtn();
@@ -410,6 +510,42 @@
         }
 
 	    document.addEventListener('DOMContentLoaded', updatePlaygroundVersion);
+
+        function openModal(id) {
+            const overlay = document.getElementById('modal-overlay');
+            const modal = document.getElementById(id + '-modal');
+            const modalContent = modal.querySelector('div');
+
+            overlay.classList.remove('hidden');
+            modal.classList.remove('hidden');
+
+            // Trigger reflow
+            void overlay.offsetWidth;
+
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+        }
+
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const modals = document.querySelectorAll('[id$="-modal"]');
+
+            overlay.classList.add('opacity-0');
+
+            modals.forEach(modal => {
+                if (!modal.classList.contains('hidden')) {
+                    modal.classList.add('opacity-0');
+                    const modalContent = modal.querySelector('div');
+                    modalContent.classList.add('scale-95');
+
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        overlay.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        }
     </script>
 </body>
 </html>
