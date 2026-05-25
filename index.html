@@ -16,71 +16,309 @@
         }
     </style>
 </head>
-<body class="text-slate-900 antialiased h-screen flex flex-col justify-center overflow-hidden">
+<body class="text-slate-900 antialiased min-h-screen flex flex-col font-sans bg-slate-50">
+    <!-- Section 1: Navigation -->
+    <nav class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">A</div>
+                <span class="font-bold text-xl tracking-tight">api-sandbox.de</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="#features" class="hover:text-blue-600 transition-colors">Features</a>
+                <a href="#demo" class="hover:text-blue-600 transition-colors">Demo</a>
+                <a href="#usecases" class="hover:text-blue-600 transition-colors">Use Cases</a>
+                <a href="#endpoints" class="hover:text-blue-600 transition-colors">Endpoints</a>
+                <a href="#faq" class="hover:text-blue-600 transition-colors">FAQ</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="/playground.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors shadow-sm">Playground</a>
+            </div>
+        </div>
+    </nav>
 
-    <div class="max-w-4xl mx-auto w-full px-8">
-        <main class="grid md:grid-cols-2 gap-16 items-center">
-            
-            <div>
-                <header class="mb-8">
-                    <div class="h-1 w-12 bg-blue-600 mb-6"></div>
-                    <h1 class="text-5xl font-extrabold tracking-tight mb-4">api-sandbox.de</h1>
-                    <p class="text-xl text-slate-500 font-medium">Sofort einsatzbereite REST-API für deine nächsten Prototypen.</p>
-                </header>
+    <!-- Section 2: Hero -->
+    <section class="relative pt-24 pb-32 overflow-hidden">
+        <div class="absolute inset-0 bg-grid-slate-100/[0.04] bg-[bottom_1px_center] dark:bg-grid-slate-400/[0.05] dark:bg-bottom dark:border-b dark:border-slate-100/5" style="mask-image: linear-gradient(to bottom, transparent, black)"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-3 mb-8 bg-white border border-slate-200 px-4 py-2 rounded-full shadow-sm">
+                <span class="flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                </span>
+                <span class="text-xs font-bold uppercase tracking-widest text-slate-600">In Entwicklung</span>
+            </div>
+            <h1 class="text-6xl md:text-7xl font-extrabold tracking-tight mb-8 text-slate-900 max-w-4xl mx-auto leading-tight">
+                Die Sandbox für deine <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">REST-API</span> Prototypen
+            </h1>
+            <p class="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+                Kostenlose Endpunkte für JSON-Daten. Perfekt für Frontend-Entwicklung, Testing und Education – ganz ohne Setup oder Registrierung.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="/playground.html" class="flex items-center justify-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition-all font-semibold shadow-lg shadow-blue-200 w-full sm:w-auto text-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Zum Playground</span>
+                </a>
+                <a href="https://github.com/api-sandbox-DE" target="_blank" class="flex items-center justify-center space-x-2 bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-xl hover:bg-slate-50 transition-all font-semibold shadow-sm w-full sm:w-auto text-lg">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
-                <div class="flex items-center space-x-3 mb-10 bg-white border border-slate-200 w-fit px-4 py-2 rounded-full shadow-sm">
-                    <span class="flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-blue-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-                    </span>
-                    <span class="text-xs font-bold uppercase tracking-widest text-slate-600">In Entwicklung</span>
-                </div>
-
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="/playground.html" class="flex-1 flex items-center justify-center space-x-3 bg-blue-600 text-white px-6 py-3.5 rounded-lg hover:bg-blue-700 transition-all font-semibold shadow-lg shadow-blue-100">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span>Playground</span>
-                        </a>
-                        <a href="https://github.com/api-sandbox-DE" target="_blank" class="flex-1 flex items-center justify-center space-x-3 bg-slate-900 text-white px-6 py-3.5 rounded-lg hover:bg-slate-800 transition-all font-semibold shadow-lg shadow-slate-200">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            <span>GitHub</span>
-                        </a>
+    <!-- Section 3: Features -->
+    <section id="features" class="py-24 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold mb-4">Warum api-sandbox.de?</h2>
+                <p class="text-slate-600 text-lg">Unsere Mock-API ist darauf ausgelegt, dir das Leben so einfach wie möglich zu machen, damit du dich aufs Wesentliche konzentrieren kannst.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <a href="mailto:api-sandbox@xpsystems.eu" class="flex items-center justify-center bg-white border border-slate-200 text-slate-700 px-6 py-3.5 rounded-lg hover:bg-slate-50 transition-all font-semibold">
-                        Kontakt
-                    </a>
+                    <h3 class="text-xl font-bold mb-3">Kein Setup nötig</h3>
+                    <p class="text-slate-600 leading-relaxed">Keine Registrierung, keine API-Keys, keine Konfiguration. Kopiere einfach die URL und leg los.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Realistische Daten</h3>
+                    <p class="text-slate-600 leading-relaxed">Unsere Endpunkte liefern realistische JSON-Datenstrukturen, die echte Anwendungsfälle abbilden.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">REST & GraphQL</h3>
+                    <p class="text-slate-600 leading-relaxed">Unterstützt alle gängigen HTTP-Methoden (GET, POST, PUT, DELETE) und bietet flexible Filterung.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="grid grid-cols-1 gap-6">
-                <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
-                    <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">Webmaster</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-sm text-slate-400 mb-1">Entwickler</p>
-                            <a href="https://github.com/michaelninder" target="_blank" class="text-lg font-bold hover:text-blue-600 transition-colors">Fabian Ternis</a>
-                        </div>
-                        <div class="flex gap-4 pt-2">
-                            <a href="https://fabianternis.de" target="_blank" class="text-xs bg-slate-100 px-3 py-1.5 rounded-md font-bold text-slate-600 hover:bg-blue-600 hover:text-white transition-all">DE Portfolio</a>
-                            <a href="https://fabianternis.dev" target="_blank" class="text-xs bg-slate-100 px-3 py-1.5 rounded-md font-bold text-slate-600 hover:bg-blue-600 hover:text-white transition-all">EN Portfolio</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-blue-600 p-8 rounded-2xl shadow-xl shadow-blue-100 text-white">
-                    <h2 class="text-sm font-bold uppercase tracking-widest mb-2 opacity-80">Mission</h2>
-                    <p class="text-lg leading-relaxed">
-                        Kostenlose Endpunkte für JSON-Daten, damit du dich auf das UI-Design und die Logik konzentrieren kannst.
+    <!-- Section 4: Interactive Demo -->
+    <section id="demo" class="py-24 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">Probiere es sofort aus</h2>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                        Führe eine Anfrage direkt hier im Browser aus. Klicke auf "Senden", um einen Beispiel-Aufruf an unsere API zu machen.
                     </p>
+                    <div class="bg-slate-800 rounded-xl p-4 font-mono text-sm border border-slate-700 mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-blue-400 font-bold">GET</span>
+                            <span class="text-slate-500">https://api-sandbox.de/api/users/1</span>
+                        </div>
+                        <code class="text-green-400">fetch('https://jsonplaceholder.typicode.com/users/1')<br>&nbsp;&nbsp;.then(res => res.json())<br>&nbsp;&nbsp;.then(json => console.log(json));</code>
+                    </div>
+                    <button id="run-demo-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2">
+                        <span>Anfrage senden</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25"></div>
+                    <div class="relative bg-slate-950 rounded-2xl border border-slate-800 p-6 shadow-2xl h-80 overflow-hidden flex flex-col">
+                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-800">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Response JSON</span>
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                        </div>
+                        <div class="flex-1 overflow-auto">
+                            <pre id="demo-output" class="text-slate-300 font-mono text-sm"><code>// Klicke auf "Anfrage senden"</code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-        </main>
+    <script>
+        document.getElementById('run-demo-btn').addEventListener('click', async () => {
+            const output = document.getElementById('demo-output');
+            output.innerHTML = '<span class="text-slate-500">Lade Daten...</span>';
+            try {
+                // Using jsonplaceholder as a fallback mock for the demo if api-sandbox endpoints aren't real yet
+                const res = await fetch('https://jsonplaceholder.typicode.com/users/1');
+                const data = await res.json();
+                output.innerHTML = `<code class="text-blue-300">${JSON.stringify(data, null, 2)}</code>`;
+            } catch (err) {
+                output.innerHTML = `<span class="text-red-400">Fehler beim Laden: ${err.message}</span>`;
+            }
+        });
+    </script>
 
-        <footer class="mt-16 border-t border-slate-200 pt-8 pb-8">
+    <!-- Section 5: Use Cases -->
+    <section id="usecases" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-16 text-center">Für wen ist das?</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Frontend Entwickler</h3>
+                        <p class="text-slate-600 leading-relaxed">Baue dein UI unabhängig vom Backend. Simuliere Ladezeiten, Fehler und leere Zustände ganz einfach durch Parameter.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Tester & QA</h3>
+                        <p class="text-slate-600 leading-relaxed">Schreibe automatisierte Tests gegen verlässliche Endpunkte, ohne eine eigene Test-Umgebung hochziehen zu müssen.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Schüler & Studenten</h3>
+                        <p class="text-slate-600 leading-relaxed">Lerne den Umgang mit REST-APIs, fetch, async/await und Promises mit echten HTTP-Aufrufen.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center text-green-600">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Sicheres Prototyping</h3>
+                        <p class="text-slate-600 leading-relaxed">Zeige Kunden erste Entwürfe mit realistischen Daten, bevor das eigentliche Backend überhaupt entwickelt wird.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Available Endpoints -->
+    <section id="endpoints" class="py-24 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-4 text-center">Beliebte Endpunkte</h2>
+            <p class="text-slate-600 text-center mb-16 max-w-2xl mx-auto">Eine Auswahl unserer am häufigsten genutzten Mock-Ressourcen.</p>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="/playground.html" class="block p-6 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all group">
+                    <div class="text-sm font-bold text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">/users</div>
+                    <h3 class="text-lg font-bold mb-1">Benutzer</h3>
+                    <p class="text-slate-500 text-sm">Profile, Adressen, Firmen</p>
+                </a>
+                <a href="/playground.html" class="block p-6 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all group">
+                    <div class="text-sm font-bold text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">/posts</div>
+                    <h3 class="text-lg font-bold mb-1">Beiträge</h3>
+                    <p class="text-slate-500 text-sm">Blog-Artikel, Titel, Inhalt</p>
+                </a>
+                <a href="/playground.html" class="block p-6 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all group">
+                    <div class="text-sm font-bold text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">/comments</div>
+                    <h3 class="text-lg font-bold mb-1">Kommentare</h3>
+                    <p class="text-slate-500 text-sm">Feedback zu Beiträgen</p>
+                </a>
+                <a href="/playground.html" class="block p-6 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all group">
+                    <div class="text-sm font-bold text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">/todos</div>
+                    <h3 class="text-lg font-bold mb-1">Todos</h3>
+                    <p class="text-slate-500 text-sm">Aufgaben mit Status</p>
+                </a>
+                <a href="/playground.html" class="block p-6 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all group">
+                    <div class="text-sm font-bold text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">/products</div>
+                    <h3 class="text-lg font-bold mb-1">Produkte</h3>
+                    <p class="text-slate-500 text-sm">E-Commerce Artikel</p>
+                </a>
+                <a href="/playground.html" class="block p-6 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all group">
+                    <div class="text-sm font-bold text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">/photos</div>
+                    <h3 class="text-lg font-bold mb-1">Bilder</h3>
+                    <p class="text-slate-500 text-sm">Galerien und Thumbnails</p>
+                </a>
+                <a href="/playground.html" class="block p-6 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all group">
+                    <div class="text-sm font-bold text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">/albums</div>
+                    <h3 class="text-lg font-bold mb-1">Alben</h3>
+                    <p class="text-slate-500 text-sm">Sammlungen von Bildern</p>
+                </a>
+                <div class="block p-6 bg-slate-100 rounded-xl border border-slate-200 border-dashed flex items-center justify-center">
+                    <span class="text-slate-500 font-medium">Und viele mehr...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: FAQ -->
+    <section id="faq" class="py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Häufig gestellte Fragen</h2>
+            <div class="space-y-4">
+
+                <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50 transition-all duration-300">
+                    <button class="faq-toggle w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-slate-100 focus:outline-none">
+                        <span>Ist die Nutzung wirklich kostenlos?</span>
+                        <svg class="w-5 h-5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-slate-600">
+                        Ja, die Nutzung von api-sandbox.de ist komplett kostenlos. Wir haben dieses Projekt ins Leben gerufen, um Entwicklern ein schnelles Werkzeug für das Prototyping an die Hand zu geben.
+                    </div>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50 transition-all duration-300">
+                    <button class="faq-toggle w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-slate-100 focus:outline-none">
+                        <span>Werden meine Daten gespeichert?</span>
+                        <svg class="w-5 h-5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-slate-600">
+                        Nein. Anfragen, die du (z.B. per POST oder PUT) an die Mock-Endpunkte schickst, werden nur simuliert und nicht dauerhaft in einer Datenbank gespeichert.
+                    </div>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50 transition-all duration-300">
+                    <button class="faq-toggle w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-slate-100 focus:outline-none">
+                        <span>Gibt es ein Rate-Limit?</span>
+                        <svg class="w-5 h-5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-slate-600">
+                        Um den Service für alle zugänglich zu halten, behalten wir uns vor, bei missbräuchlich hohen Anfragen (Spam/DDoS) IP-Adressen temporär zu blockieren. Für normales Entwickeln gibt es jedoch keine Einschränkungen.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+
+                // Toggle current FAQ
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+    </script>
+
+    <!-- Section 8: Call to Action -->
+    <section class="py-24 bg-blue-600 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-blue-700 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl font-extrabold mb-6 tracking-tight">Bereit für deinen nächsten Prototyp?</h2>
+            <p class="text-blue-100 text-xl mb-10 max-w-2xl mx-auto">
+                Starte in Sekunden. Öffne den Playground, kopiere eine URL und integriere sie in deinen Code.
+            </p>
+            <a href="/playground.html" class="inline-flex items-center justify-center space-x-2 bg-white text-blue-600 px-8 py-4 rounded-xl hover:bg-slate-50 transition-all font-bold shadow-xl hover:shadow-2xl hover:-translate-y-1 text-lg">
+                <span>Jetzt ausprobieren</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+        </div>
+    </section>
+
+<div class="bg-white px-6 border-t border-slate-200"><footer class="mt-16 border-t border-slate-200 pt-8 pb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold text-center">
                 <div class="flex flex-col md:flex-row gap-4 items-center">
                     <a href="https://github.com/api-sandbox-DE/api-sandbox.de/edit/main/index.html" class="hover:text-blue-600 transition-colors italic">Quellcode bearbeiten</a>
